@@ -17,15 +17,16 @@ VM reachable through Azure Bastion.
 ## Layout
 
 ```text
-backend/
-  dev/
-    jumphost.hcl
 environments/
+  dev.backend.hcl
   dev.tfvars
+  test.backend.hcl
   test.tfvars
+  acc.backend.hcl
   acc.tfvars
+  prod.backend.hcl
   prod.tfvars
-01-jumphost/
+jumphost/
   main.tf
   variables.tf
   outputs.tf
@@ -40,8 +41,8 @@ with its backend config.
 Example:
 
 ```bash
-cd 01-jumphost
-terraform init -backend-config=../backend/dev/jumphost.hcl
+cd jumphost
+terraform init -backend-config=../environments/dev.backend.hcl
 terraform plan -var-file=../environments/dev.tfvars -out=tfplan
 # terraform apply tfplan only after human approval
 ```
@@ -50,4 +51,4 @@ terraform plan -var-file=../environments/dev.tfvars -out=tfplan
 
 | Workload root | Stack | Version |
 | --- | --- | --- |
-| `01-jumphost` | `xx-azurerm-stack-jumphost` | `v0.0.2` |
+| `jumphost` | `xx-azurerm-stack-jumphost` | `v0.0.2` |
