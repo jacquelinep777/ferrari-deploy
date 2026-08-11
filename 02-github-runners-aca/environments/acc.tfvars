@@ -1,0 +1,17 @@
+workload    = "ferrari"
+environment = "acc"
+location    = "westeurope"
+region_code = "we"
+instance    = "01"
+cia         = "233"
+
+infrastructure_subnet_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-ferrari-dev-we-01/providers/Microsoft.Network/virtualNetworks/vnet-ferrari-dev-we-01/subnets/snet-aca-ferrari-dev-we-01"
+acr_id                   = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-acr-dev-we-01/providers/Microsoft.ContainerRegistry/registries/acrxxdevwe01"
+acr_login_server         = "acrxxdevwe01.azurecr.io"
+runner_image_name        = "github-runner"
+runner_image_tag         = "2026.08.11"
+
+github_owner      = "jacquelinep777"
+github_repository = "ferrari"
+
+runner_extra_labels = ["ferrari"]

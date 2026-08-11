@@ -1,5 +1,5 @@
 workload    = "ferrari"
-environment = "dev"
+environment = "test"
 location    = "westeurope"
 region_code = "we"
 instance    = "01"
@@ -13,8 +13,5 @@ runner_image_tag         = "2026.08.11"
 
 github_owner      = "jacquelinep777"
 github_repository = "ferrari"
-
-# Do not put real tokens in tfvars. Supply with TF_VAR_github_pat from a secret source.
-github_pat = "replace-from-secret-source"
 
 runner_extra_labels = ["ferrari"]

@@ -5,5 +5,3 @@ tfplan
 tfplan.json
 .terraform.lock.hcl
 *.auto.tfvars
-*.tfvars
-!*.tfvars.example

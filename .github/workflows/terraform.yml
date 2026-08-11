@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         root:
-          - environments/dev/jumphost
-          - environments/dev/github-runners-aca
+          - 01-jumphost
+          - 02-github-runners-aca
 
     steps:
       - uses: actions/checkout@v4

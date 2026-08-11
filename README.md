@@ -17,14 +17,24 @@ backend/
   dev/
     jumphost.hcl
     github-runners-aca.hcl
-environments/
-  dev/
-    jumphost/
-      main.tf
-      terraform.tfvars.example
-    github-runners-aca/
-      main.tf
-      terraform.tfvars.example
+01-jumphost/
+  main.tf
+  variables.tf
+  outputs.tf
+  environments/
+    dev.tfvars
+    test.tfvars
+    acc.tfvars
+    prod.tfvars
+02-github-runners-aca/
+  main.tf
+  variables.tf
+  outputs.tf
+  environments/
+    dev.tfvars
+    test.tfvars
+    acc.tfvars
+    prod.tfvars
 ```
 
 ## Deploy order
@@ -36,15 +46,21 @@ with its backend config.
 Example:
 
 ```bash
-cd environments/dev/jumphost
-terraform init -backend-config=../../../backend/dev/jumphost.hcl
-terraform plan -var-file=terraform.tfvars.example -out=tfplan
+cd 01-jumphost
+terraform init -backend-config=../backend/dev/jumphost.hcl
+terraform plan -var-file=environments/dev.tfvars -out=tfplan
 # terraform apply tfplan only after human approval
+```
+
+For secrets, use environment variables or the pipeline secret store, not tfvars:
+
+```bash
+export TF_VAR_github_pat="..."
 ```
 
 ## Stack pins
 
 | Workload root | Stack | Version |
 | --- | --- | --- |
-| `environments/dev/jumphost` | `xx-azurerm-stack-jumphost` | `v0.0.2` |
-| `environments/dev/github-runners-aca` | `xx-azurerm-stack-github-runners-aca` | `v0.0.1` |
+| `01-jumphost` | `xx-azurerm-stack-jumphost` | `v0.0.2` |
+| `02-github-runners-aca` | `xx-azurerm-stack-github-runners-aca` | `v0.0.1` |
