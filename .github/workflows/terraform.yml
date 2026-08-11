@@ -31,6 +31,11 @@ jobs:
         with:
           terraform_version: "1.15.8"
 
+      - name: Install conftest
+        run: |
+          curl -L https://github.com/open-policy-agent/conftest/releases/download/v0.59.0/conftest_0.59.0_Linux_x86_64.tar.gz | tar xz
+          sudo mv conftest /usr/local/bin/conftest
+
       - name: Format
         run: terraform fmt -check -recursive
 
@@ -44,4 +49,10 @@ jobs:
 
       - name: Plan
         working-directory: jumphost
-        run: terraform plan -input=false -var-file=../environments/${TF_ENVIRONMENT}.tfvars -out=tfplan
+        run: |
+          terraform plan -input=false -var-file=../environments/${TF_ENVIRONMENT}.tfvars -out=tfplan
+          terraform show -json tfplan > tfplan.json
+
+      - name: Blast radius policy
+        working-directory: jumphost
+        run: conftest test tfplan.json --policy ../policies
