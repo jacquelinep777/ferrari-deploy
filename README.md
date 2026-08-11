@@ -20,15 +20,15 @@ VM reachable through Azure Bastion.
 backend/
   dev/
     jumphost.hcl
+environments/
+  dev.tfvars
+  test.tfvars
+  acc.tfvars
+  prod.tfvars
 01-jumphost/
   main.tf
   variables.tf
   outputs.tf
-  environments/
-    dev.tfvars
-    test.tfvars
-    acc.tfvars
-    prod.tfvars
 ```
 
 ## Deploy order
@@ -42,7 +42,7 @@ Example:
 ```bash
 cd 01-jumphost
 terraform init -backend-config=../backend/dev/jumphost.hcl
-terraform plan -var-file=environments/dev.tfvars -out=tfplan
+terraform plan -var-file=../environments/dev.tfvars -out=tfplan
 # terraform apply tfplan only after human approval
 ```
 
