@@ -18,13 +18,13 @@ VM reachable through Azure Bastion.
 
 ```text
 environments/
-  dev.backend.hcl
+  dev.tfbackend
   dev.tfvars
-  test.backend.hcl
+  test.tfbackend
   test.tfvars
-  acc.backend.hcl
+  acc.tfbackend
   acc.tfvars
-  prod.backend.hcl
+  prod.tfbackend
   prod.tfvars
 jumphost/
   main.tf
@@ -42,7 +42,7 @@ Example:
 
 ```bash
 cd jumphost
-terraform init -backend-config=../environments/dev.backend.hcl
+terraform init -backend-config=../environments/dev.tfbackend
 terraform plan -var-file=../environments/dev.tfvars -out=tfplan
 # terraform apply tfplan only after human approval
 ```
