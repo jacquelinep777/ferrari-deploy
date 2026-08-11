@@ -3,18 +3,26 @@ name: terraform
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to plan
+        type: choice
+        default: dev
+        options:
+          - dev
+          - test
+          - acc
+          - prod
 
 permissions:
   contents: read
 
 jobs:
-  validate:
+  plan:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        root:
-          - jumphost
+    env:
+      TF_ENVIRONMENT: ${{ github.event.inputs.environment || 'dev' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -26,10 +34,14 @@ jobs:
       - name: Format
         run: terraform fmt -check -recursive
 
-      - name: Init without backend
-        working-directory: ${{ matrix.root }}
-        run: terraform init -backend=false -input=false
+      - name: Init
+        working-directory: jumphost
+        run: terraform init -input=false -backend-config=../environments/${TF_ENVIRONMENT}.tfbackend
 
       - name: Validate
-        working-directory: ${{ matrix.root }}
+        working-directory: jumphost
         run: terraform validate
+
+      - name: Plan
+        working-directory: jumphost
+        run: terraform plan -input=false -var-file=../environments/${TF_ENVIRONMENT}.tfvars -out=tfplan
