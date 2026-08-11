@@ -15,7 +15,6 @@ jobs:
       matrix:
         root:
           - 01-jumphost
-          - 02-github-runners-aca
 
     steps:
       - uses: actions/checkout@v4
