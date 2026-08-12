@@ -41,9 +41,8 @@ with its backend config.
 Example:
 
 ```bash
-cd jumphost
-terraform init -backend-config=../environments/dev.tfbackend
-terraform plan -var-file=../environments/dev.tfvars -out=tfplan
+make check
+make plan ENV=dev
 # terraform apply tfplan only after human approval
 ```
 
