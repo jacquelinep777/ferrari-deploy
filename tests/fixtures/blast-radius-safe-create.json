@@ -1,0 +1,40 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.15.8",
+  "resource_changes": [
+    {
+      "address": "module.jumphost.azurerm_resource_group.this",
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "this",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {}
+      }
+    },
+    {
+      "address": "module.jumphost.module.network.azurerm_virtual_network.this",
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "this",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {}
+      }
+    },
+    {
+      "address": "module.jumphost.module.vms.azurerm_linux_virtual_machine.this[\"linux\"]",
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "this",
+      "index": "linux",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {}
+      }
+    }
+  ]
+}

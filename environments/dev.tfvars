@@ -3,7 +3,7 @@ environment = "dev"
 location    = "westeurope"
 region_code = "we"
 instance    = "01"
-cia         = "233"
+biv         = "233"
 
 address_space            = ["10.40.0.0/16"]
 management_subnet_prefix = "10.40.1.0/24"

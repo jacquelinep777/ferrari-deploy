@@ -16,14 +16,14 @@ provider "azurerm" {
 }
 
 module "jumphost" {
-  source = "git::ssh://git@github.com-jacquelinep777/jacquelinep777/xx-azurerm-stack-jumphost.git?ref=v0.0.2"
+  source = "git::ssh://git@github.com-jacquelinep777/jacquelinep777/xx-azurerm-stack-jumphost.git?ref=v0.0.3"
 
   workload    = var.workload
   environment = var.environment
   location    = var.location
   region_code = var.region_code
   instance    = var.instance
-  cia         = var.cia
+  biv         = var.biv
 
   address_space            = var.address_space
   management_subnet_prefix = var.management_subnet_prefix

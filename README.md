@@ -51,4 +51,4 @@ terraform plan -var-file=../environments/dev.tfvars -out=tfplan
 
 | Workload root | Stack | Version |
 | --- | --- | --- |
-| `jumphost` | `xx-azurerm-stack-jumphost` | `v0.0.2` |
+| `jumphost` | `xx-azurerm-stack-jumphost` | `v0.0.3` |

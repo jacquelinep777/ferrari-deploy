@@ -1,4 +1,4 @@
-package terraform.blast_radius
+package main
 
 import rego.v1
 
@@ -17,6 +17,7 @@ weights := {
   "azurerm_network_interface": {"delete": 20, "create": 1, "modify": 10},
   "azurerm_linux_virtual_machine": {"delete": 100, "create": 1, "modify": 50},
   "azurerm_windows_virtual_machine": {"delete": 100, "create": 1, "modify": 50},
+  "azurerm_virtual_machine_extension": {"delete": 10, "create": 1, "modify": 10},
   "azurerm_role_assignment": {"delete": 10, "create": 1, "modify": 10},
   "azurerm_pim_eligible_role_assignment": {"delete": 10, "create": 1, "modify": 10},
   "azurerm_monitor_diagnostic_setting": {"delete": 10, "create": 1, "modify": 10},

@@ -18,7 +18,7 @@ variable "instance" {
   type = string
 }
 
-variable "cia" {
+variable "biv" {
   type = string
 }
 

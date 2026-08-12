@@ -31,6 +31,42 @@ jobs:
         with:
           terraform_version: "1.15.8"
 
+      - name: Configure private module access
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.TERRAFORM_JUMPHOST_SSH_KEY }}" > ~/.ssh/jumphost
+          printf '%s\n' "${{ secrets.TERRAFORM_NETWORK_SSH_KEY }}" > ~/.ssh/network
+          printf '%s\n' "${{ secrets.TERRAFORM_VMS_SSH_KEY }}" > ~/.ssh/vms
+          printf '%s\n' "${{ secrets.TERRAFORM_BASTION_ACCESS_SSH_KEY }}" > ~/.ssh/bastion_access
+          chmod 600 ~/.ssh/jumphost ~/.ssh/network ~/.ssh/vms ~/.ssh/bastion_access
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          printf '%s\n' \
+            'Host github.com-jacquelinep777-jumphost' \
+            '  HostName github.com' \
+            '  User git' \
+            '  IdentityFile ~/.ssh/jumphost' \
+            '  IdentitiesOnly yes' \
+            'Host github.com-jacquelinep777-network' \
+            '  HostName github.com' \
+            '  User git' \
+            '  IdentityFile ~/.ssh/network' \
+            '  IdentitiesOnly yes' \
+            'Host github.com-jacquelinep777-vms' \
+            '  HostName github.com' \
+            '  User git' \
+            '  IdentityFile ~/.ssh/vms' \
+            '  IdentitiesOnly yes' \
+            'Host github.com-jacquelinep777-bastion-access' \
+            '  HostName github.com' \
+            '  User git' \
+            '  IdentityFile ~/.ssh/bastion_access' \
+            '  IdentitiesOnly yes' \
+            >> ~/.ssh/config
+          git config --global url."ssh://git@github.com-jacquelinep777-jumphost/jacquelinep777/xx-azurerm-stack-jumphost.git".insteadOf "ssh://git@github.com-jacquelinep777/jacquelinep777/xx-azurerm-stack-jumphost.git"
+          git config --global url."ssh://git@github.com-jacquelinep777-network/jacquelinep777/xx-azurerm-network.git".insteadOf "ssh://git@github.com-jacquelinep777/jacquelinep777/xx-azurerm-network.git"
+          git config --global url."ssh://git@github.com-jacquelinep777-vms/jacquelinep777/xx-azurerm-vms.git".insteadOf "ssh://git@github.com-jacquelinep777/jacquelinep777/xx-azurerm-vms.git"
+          git config --global url."ssh://git@github.com-jacquelinep777-bastion-access/jacquelinep777/xx-azurerm-stack-bastion-access.git".insteadOf "ssh://git@github.com-jacquelinep777/jacquelinep777/xx-azurerm-stack-bastion-access.git"
+
       - name: Install conftest
         run: |
           curl -L https://github.com/open-policy-agent/conftest/releases/download/v0.59.0/conftest_0.59.0_Linux_x86_64.tar.gz | tar xz
