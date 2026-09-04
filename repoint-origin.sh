@@ -28,4 +28,8 @@ for old_name in "${!REPO_MAP[@]}"; do
 
   echo "Repointing $old_name -> $new_name"
   git -C "$repo_path" remote set-url origin "$NEW_BASE_URL/$new_name.git"
+
+  new_path="$REPOS_DIR/$new_name"
+  echo "Renaming folder $repo_path -> $new_path"
+  mv "$repo_path" "$new_path"
 done
